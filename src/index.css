@@ -17,3 +17,14 @@ html{
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
+
+@media (max-width: 768px) {
+  html{
+    font-size: 55.5%;
+  }
+}
+@media (max-width: 400px) {
+  html{
+    font-size: 42.5%;
+  }
+}
