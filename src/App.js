@@ -68,7 +68,7 @@ function App() {
       setImgHeight(refImg.current.offsetHeight);
       setImgWidth(refImg.current.offsetWidth);
     }
-  }, [refImg, loaded]);
+  }, [refImg, loaded, image]);
 
   useEffect(() => {
     console.log("Width", imgWidth);
@@ -79,15 +79,15 @@ function App() {
   return (
     <Container className="App">
       <canvas ref={refCanvas} width={"40rem"} style={{ resize: "contain" }} />
-      <ImgContainer height={imgHeight}>
-        {image && <Img
+     {image &&  <ImgContainer height={imgHeight} width={imgWidth}>
+        <Img
           src={URL.createObjectURL(image)}
           alt="logo"
           ref={refImg}
           polygon={cornors}
           onLoad={() => setLoaded(true)}
-        />}
-        <PointerContainer width={imgWidth} height={imgHeight}>
+        />
+         <PointerContainer width={imgWidth} height={imgHeight}>
           <Draggable
             ref={refPointer1}
             bounds={"parent"}
@@ -337,7 +337,7 @@ function App() {
             <Pointer8 className={activePointer.pointer8 ? "active" : ""} />
           </Draggable>
         </PointerContainer>
-      </ImgContainer>
+      </ImgContainer>}
       <ButtonContainer>
       <button
         onClick={() => {
@@ -397,11 +397,12 @@ function App() {
 export default App;
 
 const Container = styled.div`
-  height: 100vh;
+  height: 200vh;
   width: 100vw;
   display: flex;
   /* background-color: teal; */
-  justify-content: center;
+  /* justify-content: center; */
+  margin-top: 5%;
   align-items: center;
   overflow-x: hidden;
   flex-direction: column;
@@ -409,7 +410,8 @@ const Container = styled.div`
 
 const ImgContainer = styled.div`
   min-height: 20rem;
-  width: 42rem;
+  max-height: 42rem;
+  width: ${(props) => props.width + 20}px;
   margin-block: 1rem;
   height: ${(props) => props.height + 20}px;
   position: relative;
@@ -420,6 +422,7 @@ const ImgContainer = styled.div`
 const Img = styled.img`
   max-width: 40rem;
   margin-inline: 1rem;
+  max-height: 40rem;
   /* max-height: 100%; */
   align-self: center;
   clip-path: polygon(
@@ -445,8 +448,9 @@ const Img = styled.img`
 `;
 
 const PointerContainer = styled.div`
-  width: 42rem;
+  width: ${(props) => props.width + 20}px;
   min-height: 20rem;
+  max-height: 42rem;
   height: ${(props) => props.height + 20}px;
   position: absolute;
   background-color: transparent;
