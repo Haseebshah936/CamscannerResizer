@@ -65,16 +65,18 @@ function App() {
 
   useEffect(() => {
     if(image){
+      console.log("Repicked")
+      console.log("Width", refImg.current.offsetHeight);
+    console.log(refImg.current.offsetWidth);
       setImgHeight(refImg.current.offsetHeight);
       setImgWidth(refImg.current.offsetWidth);
     }
   }, [refImg, loaded, image]);
 
   useEffect(() => {
-    console.log("Width", imgWidth);
-    console.log(imgHeight);
-    console.log(activePointer);
-  }, [activePointer]);
+    
+    // console.log(activePointer);
+  }, [activePointer, image]);
 
   return (
     <Container className="App">
@@ -388,7 +390,10 @@ function App() {
       >
         Crop
       </button>
-      <input type={"file"} onChange={(e) => setImage(e.target.files[0])}/>
+      <input type={"file"} onChange={(e) => {
+          setLoaded(false)
+          setImage(e.target.files[0])
+        }}/>
       </ButtonContainer>
     </Container>
   );
@@ -409,7 +414,7 @@ const Container = styled.div`
 `;
 
 const ImgContainer = styled.div`
-  min-height: 20rem;
+  min-height: 5rem;
   max-height: 42rem;
   width: ${(props) => props.width + 20}px;
   margin-block: 1rem;
@@ -449,7 +454,7 @@ const Img = styled.img`
 
 const PointerContainer = styled.div`
   width: ${(props) => props.width + 20}px;
-  min-height: 20rem;
+  min-height: 5rem;
   max-height: 42rem;
   height: ${(props) => props.height + 20}px;
   position: absolute;
