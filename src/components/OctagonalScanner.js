@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import Draggable from "react-draggable";
 import styled from "styled-components";
-import "./App.css";
+// import "./App.css";
 
-function App() {
+function OctagonalScanner() {
   const [imgHeight, setImgHeight] = useState(0);
   const [imgWidth, setImgWidth] = useState(0);
   const [activePointer, setActivePointer] = useState({
@@ -432,7 +432,7 @@ function App() {
   );
 }
 
-export default App;
+export default OctagonalScanner;
 
 const Container = styled.div`
   height: 200vh;
