@@ -21,33 +21,17 @@ function App() {
       X: 0,
       Y: 0,
     },
-    pointer2: {
-      X: 50,
-      Y: 0,
-    },
     pointer3: {
       X: 100,
       Y: 0,
-    },
-    pointer4: {
-      X: 100,
-      Y: 50,
     },
     pointer5: {
       X: 100,
       Y: 100,
     },
-    pointer6: {
-      X: 50,
-      Y: 100,
-    },
     pointer7: {
       X: 0,
       Y: 100,
-    },
-    pointer8: {
-      X: 0,
-      Y: 50,
     },
   });
   const [loaded, setLoaded] = useState(false);
@@ -145,19 +129,19 @@ function App() {
                 pointer8: false,
               }))
             }
-            onDrag={(e) => {
-              const X =
-                ((imgWidth * 0.5 + refPointer2.current.state.x) / imgWidth) *
-                100;
-              const Y = ((0 + refPointer2.current.state.y) / imgHeight) * 100;
-              setCornors({
-                ...cornors,
-                pointer2: {
-                  X,
-                  Y,
-                },
-              });
-            }}
+            // onDrag={(e) => {
+            //   const X =
+            //     ((imgWidth * 0.5 + refPointer2.current.state.x) / imgWidth) *
+            //     100;
+            //   const Y = ((0 + refPointer2.current.state.y) / imgHeight) * 100;
+            //   setCornors({
+            //     ...cornors,
+            //     pointer2: {
+            //       X,
+            //       Y,
+            //     },
+            //   });
+            // }}
           >
             <Pointer2 className={activePointer.pointer2 ? "active" : ""} />
           </Draggable>
@@ -206,20 +190,20 @@ function App() {
                 pointer8: false,
               }))
             }
-            onDrag={(e) => {
-              const X =
-                ((imgWidth + refPointer4.current.state.x) / imgWidth) * 100;
-              const Y =
-                ((imgHeight * 0.5 + refPointer4.current.state.y) / imgHeight) *
-                100;
-              setCornors({
-                ...cornors,
-                pointer4: {
-                  X,
-                  Y,
-                },
-              });
-            }}
+            // onDrag={(e) => {
+            //   const X =
+            //     ((imgWidth + refPointer4.current.state.x) / imgWidth) * 100;
+            //   const Y =
+            //     ((imgHeight * 0.5 + refPointer4.current.state.y) / imgHeight) *
+            //     100;
+            //   setCornors({
+            //     ...cornors,
+            //     pointer4: {
+            //       X,
+            //       Y,
+            //     },
+            //   });
+            // }}
           >
             <Pointer4 className={activePointer.pointer4 ? "active" : ""} />
           </Draggable>
@@ -269,20 +253,20 @@ function App() {
                 pointer8: false,
               }))
             }
-            onDrag={(e) => {
-              const X =
-                ((imgWidth * 0.5 + refPointer6.current.state.x) / imgWidth) *
-                100;
-              const Y =
-                ((imgHeight + refPointer6.current.state.y) / imgHeight) * 100;
-              setCornors({
-                ...cornors,
-                pointer6: {
-                  X,
-                  Y,
-                },
-              });
-            }}
+            // onDrag={(e) => {
+            //   const X =
+            //     ((imgWidth * 0.5 + refPointer6.current.state.x) / imgWidth) *
+            //     100;
+            //   const Y =
+            //     ((imgHeight + refPointer6.current.state.y) / imgHeight) * 100;
+            //   setCornors({
+            //     ...cornors,
+            //     pointer6: {
+            //       X,
+            //       Y,
+            //     },
+            //   });
+            // }}
           >
             <Pointer6 className={activePointer.pointer6 ? "active" : ""} />
           </Draggable>
@@ -331,19 +315,19 @@ function App() {
                 pointer8: true,
               }))
             }
-            onDrag={(e) => {
-              const X = ((0 + refPointer8.current.state.x) / imgWidth) * 100;
-              const Y =
-                ((imgHeight * 0.5 + refPointer8.current.state.y) / imgHeight) *
-                100;
-              setCornors({
-                ...cornors,
-                pointer8: {
-                  X,
-                  Y,
-                },
-              });
-            }}
+            // onDrag={(e) => {
+            //   const X = ((0 + refPointer8.current.state.x) / imgWidth) * 100;
+            //   const Y =
+            //     ((imgHeight * 0.5 + refPointer8.current.state.y) / imgHeight) *
+            //     100;
+            //   setCornors({
+            //     ...cornors,
+            //     pointer8: {
+            //       X,
+            //       Y,
+            //     },
+            //   });
+            // }}
           >
             <Pointer8 className={activePointer.pointer8 ? "active" : ""} />
           </Draggable>
@@ -362,32 +346,16 @@ function App() {
             (cornors.pointer1.Y * imgHeight) / 100
           );
           ctx.lineTo(
-            (cornors.pointer2.X * imgWidth) / 100,
-            (cornors.pointer2.Y * imgHeight) / 100
-          );
-          ctx.lineTo(
             (cornors.pointer3.X * imgWidth) / 100,
             (cornors.pointer3.Y * imgHeight) / 100
-          );
-          ctx.lineTo(
-            (cornors.pointer4.X * imgWidth) / 100,
-            (cornors.pointer4.Y * imgHeight) / 100
           );
           ctx.lineTo(
             (cornors.pointer5.X * imgWidth) / 100,
             (cornors.pointer5.Y * imgHeight) / 100
           );
           ctx.lineTo(
-            (cornors.pointer6.X * imgWidth) / 100,
-            (cornors.pointer6.Y * imgHeight) / 100
-          );
-          ctx.lineTo(
             (cornors.pointer7.X * imgWidth) / 100,
             (cornors.pointer7.Y * imgHeight) / 100
-          );
-          ctx.lineTo(
-            (cornors.pointer8.X * imgWidth) / 100,
-            (cornors.pointer8.Y * imgHeight) / 100
           );
           ctx.closePath();
           ctx.clip();
@@ -472,20 +440,12 @@ const Img = styled.img`
   clip-path: polygon(
     ${(props) => props.polygon.pointer1.X + "%"}
       ${(props) => props.polygon.pointer1.Y + "%"},
-    ${(props) => props.polygon.pointer2.X + "%"}
-      ${(props) => props.polygon.pointer2.Y + "%"},
     ${(props) => props.polygon.pointer3.X + "%"}
       ${(props) => props.polygon.pointer3.Y + "%"},
-    ${(props) => props.polygon.pointer4.X + "%"}
-      ${(props) => props.polygon.pointer4.Y + "%"},
     ${(props) => props.polygon.pointer5.X + "%"}
       ${(props) => props.polygon.pointer5.Y + "%"},
-    ${(props) => props.polygon.pointer6.X + "%"}
-      ${(props) => props.polygon.pointer6.Y + "%"},
     ${(props) => props.polygon.pointer7.X + "%"}
-      ${(props) => props.polygon.pointer7.Y + "%"},
-    ${(props) => props.polygon.pointer8.X + "%"}
-      ${(props) => props.polygon.pointer8.Y + "%"}
+      ${(props) => props.polygon.pointer7.Y + "%"}
   );
   /* padding: 2rem; */
   /* vertical-align: middle; */
