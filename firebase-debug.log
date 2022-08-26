@@ -1,0 +1,54 @@
+[debug] [2022-08-26T15:52:53.190Z] ----------------------------------------------------------------------
+[debug] [2022-08-26T15:52:53.190Z] Command:       /opt/homebrew/Cellar/node/18.7.0/bin/node /opt/homebrew/bin/firebase deploy
+[debug] [2022-08-26T15:52:53.191Z] CLI Version:   11.8.0
+[debug] [2022-08-26T15:52:53.191Z] Platform:      darwin
+[debug] [2022-08-26T15:52:53.191Z] Node Version:  v18.7.0
+[debug] [2022-08-26T15:52:53.191Z] Time:          Fri Aug 26 2022 20:52:53 GMT+0500 (Pakistan Standard Time)
+[debug] [2022-08-26T15:52:53.192Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-08-26T15:52:53.224Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-08-26T15:52:53.224Z] > authorizing via signed-in user (ahshahhealth@gmail.com)
+[debug] [2022-08-26T15:52:53.224Z] [iam] checking project docboyz-508a6 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2022-08-26T15:52:53.225Z] > refreshing access token with scopes: []
+[debug] [2022-08-26T15:52:53.226Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2022-08-26T15:52:53.226Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2022-08-26T15:52:53.659Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2022-08-26T15:52:53.660Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2022-08-26T15:52:53.711Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/docboyz-508a6:testIamPermissions [none]
+[debug] [2022-08-26T15:52:53.712Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/docboyz-508a6:testIamPermissions x-goog-quota-user=projects/docboyz-508a6
+[debug] [2022-08-26T15:52:53.712Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/docboyz-508a6:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2022-08-26T15:52:55.331Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/docboyz-508a6:testIamPermissions 200
+[debug] [2022-08-26T15:52:55.331Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/docboyz-508a6:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2022-08-26T15:52:55.331Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/docboyz-508a6 [none]
+[debug] [2022-08-26T15:52:56.007Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/docboyz-508a6 200
+[debug] [2022-08-26T15:52:56.008Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/docboyz-508a6 {"projectId":"docboyz-508a6","projectNumber":"479252483652","displayName":"DocBoyz","name":"projects/docboyz-508a6","resources":{"hostingSite":"docboyz-508a6"},"state":"ACTIVE","etag":"1_cbbfab2e-4c67-4019-90d8-dbc6f9c60a00"}
+[info] 
+[info] === Deploying to 'docboyz-508a6'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2022-08-26T15:52:56.011Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/docboyz-508a6 [none]
+[debug] [2022-08-26T15:52:56.657Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/docboyz-508a6 200
+[debug] [2022-08-26T15:52:56.658Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/docboyz-508a6 {"projectId":"docboyz-508a6","projectNumber":"479252483652","displayName":"DocBoyz","name":"projects/docboyz-508a6","resources":{"hostingSite":"docboyz-508a6"},"state":"ACTIVE","etag":"1_cbbfab2e-4c67-4019-90d8-dbc6f9c60a00"}
+[debug] [2022-08-26T15:52:56.660Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/479252483652/sites/docboyz-508a6/versions [none]
+[debug] [2022-08-26T15:52:56.660Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/479252483652/sites/docboyz-508a6/versions {"config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2022-08-26T15:52:58.695Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/479252483652/sites/docboyz-508a6/versions 200
+[debug] [2022-08-26T15:52:58.695Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/479252483652/sites/docboyz-508a6/versions {"name":"projects/479252483652/sites/docboyz-508a6/versions/39b02ed3f479b188","status":"CREATED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[docboyz-508a6]: beginning deploy... 
+[info] i  hosting[docboyz-508a6]: found 12 files in build 
+[debug] [2022-08-26T15:52:58.701Z] [hosting] uploading with 200 concurrency
+[debug] [2022-08-26T15:52:58.717Z] [hosting] hash cache [YnVpbGQ] stored for 12 files
+[debug] [2022-08-26T15:52:58.718Z] [hosting][hash queue][FINAL] {"max":12,"min":4,"avg":5.583333333333333,"active":0,"complete":12,"success":12,"errored":0,"retried":0,"total":12,"elapsed":16}
+[debug] [2022-08-26T15:52:58.718Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/479252483652/sites/docboyz-508a6/versions/39b02ed3f479b188:populateFiles [none]
+[debug] [2022-08-26T15:52:58.718Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/479252483652/sites/docboyz-508a6/versions/39b02ed3f479b188:populateFiles {"files":{"/asset-manifest.json":"e03c1b30df45b81b64639083fcb8536991ade0d1a402d2721a2fe640b5ba3ae7","/favicon.ico":"b72f7455f00e4e58792d2bca892abb068e2213838c0316d6b7a0d6d16acd1955","/index.html":"f556be84a81599fe33e9eb55a6dbab2f853ddaf66488b9d50258b906d4989445","/logo192.png":"caff018b7f1e8fd481eb1c50d75b0ef236bcd5078b1d15c8bb348453fee30293","/manifest.json":"341d52628782f8ac9290bbfc43298afccb47b7cbfcee146ae30cf0f46bc30900","/robots.txt":"391d14b3c2f8c9143a27a28c7399585142228d4d1bdbe2c87ac946de411fa9a2","/static/css/main.a906e6ee.css":"53b4af82fa201e62d022da640327b87192a665fc8c52260dae92e69f614bc1d0","/logo512.png":"191fc21360b4ccfb1cda11a1efb97f489ed22672ca83f4064316802bbfdd750e","/static/js/main.95461122.js.LICENSE.txt":"51d661b9f06db1e544b52d2cf226d67371b12776c4ce8ee67adbd4fc5ddd635e","/static/js/27.37a1c3f0.chunk.js":"ab98e95e6c8edbfd4c568f878f1b0837d446a203f9cda0f60c00b618d32571ea","/img.jpeg":"884d20e81570eaea2f29ec0be866fa18d9022bf1614d42eead514d36fb90d4ae","/static/js/main.95461122.js":"038697e26e3810cc3c840dc45da338d1adee7769609eadc6c4640e8cc2bd2355"}}
+[debug] [2022-08-26T15:53:00.443Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/479252483652/sites/docboyz-508a6/versions/39b02ed3f479b188:populateFiles 200
+[debug] [2022-08-26T15:53:00.443Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/479252483652/sites/docboyz-508a6/versions/39b02ed3f479b188:populateFiles {"uploadRequiredHashes":["038697e26e3810cc3c840dc45da338d1adee7769609eadc6c4640e8cc2bd2355","e03c1b30df45b81b64639083fcb8536991ade0d1a402d2721a2fe640b5ba3ae7","51d661b9f06db1e544b52d2cf226d67371b12776c4ce8ee67adbd4fc5ddd635e","f556be84a81599fe33e9eb55a6dbab2f853ddaf66488b9d50258b906d4989445"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/docboyz-508a6/versions/39b02ed3f479b188/files"}
+[debug] [2022-08-26T15:53:00.445Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/docboyz-508a6/versions/39b02ed3f479b188/files/038697e26e3810cc3c840dc45da338d1adee7769609eadc6c4640e8cc2bd2355 [none]
+[debug] [2022-08-26T15:53:00.445Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/docboyz-508a6/versions/39b02ed3f479b188/files/038697e26e3810cc3c840dc45da338d1adee7769609eadc6c4640e8cc2bd2355 [stream]
+[debug] [2022-08-26T15:53:00.446Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/docboyz-508a6/versions/39b02ed3f479b188/files/e03c1b30df45b81b64639083fcb8536991ade0d1a402d2721a2fe640b5ba3ae7 [none]
+[debug] [2022-08-26T15:53:00.446Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/docboyz-508a6/versions/39b02ed3f479b188/files/e03c1b30df45b81b64639083fcb8536991ade0d1a402d2721a2fe640b5ba3ae7 [stream]
+[debug] [2022-08-26T15:53:00.447Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/docboyz-508a6/versions/39b02ed3f479b188/files/51d661b9f06db1e544b52d2cf226d67371b12776c4ce8ee67adbd4fc5ddd635e [none]
+[debug] [2022-08-26T15:53:00.447Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/docboyz-508a6/versions/39b02ed3f479b188/files/51d661b9f06db1e544b52d2cf226d67371b12776c4ce8ee67adbd4fc5ddd635e [stream]
+[debug] [2022-08-26T15:53:00.448Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/docboyz-508a6/versions/39b02ed3f479b188/files/f556be84a81599fe33e9eb55a6dbab2f853ddaf66488b9d50258b906d4989445 [none]
+[debug] [2022-08-26T15:53:00.448Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/docboyz-508a6/versions/39b02ed3f479b188/files/f556be84a81599fe33e9eb55a6dbab2f853ddaf66488b9d50258b906d4989445 [stream]
+[debug] [2022-08-26T15:53:00.449Z] [hosting][populate queue][FINAL] {"max":1729,"min":1729,"avg":1729,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":1733}
+[debug] [2022-08-26T15:53:00.449Z] [hosting] uploads queued: 4

@@ -37,7 +37,6 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-  const [imageUrl2, setImageUrl2] = useState(null);
   const refCanvas = useRef();
   const refCanvas2 = useRef();
   const refImg = useRef();
@@ -50,9 +49,6 @@ function App() {
   const refPointer6 = useRef();
   const refPointer7 = useRef();
   const refPointer8 = useRef();
-  const [imgWidth2, setImgWidth2] = useState(0);
-  const [imgHeight2, setImgHeight2] = useState(0);
-  
 
   useEffect(() => {
     if(image){
@@ -72,13 +68,12 @@ function App() {
   return (
     <Container className="App">
       {/* <p>canvas1</p> */}
-      <canvas ref={refCanvas} style={{ resize: "contain", display: "none", position: "absolute" }} />
-      { imageUrl2 && <a href={imageUrl2} download>Download Cropped</a>}
-        <canvas ref={refCanvas2} style={{ resize: "contain",width: imgWidth2, display: "none"}} /> 
+      <canvas ref={refCanvas} width={"40rem"} style={{ resize: "contain", display: "none" }} />
+      <p>Cropped</p>
+      <canvas ref={refCanvas2} width={"40rem"} style={{ resize: "contain"}} />
       {/* <p>Image2</p> */}
-      { imgWidth2 ?  <Image src={imageUrl2} style={{width: imgWidth2, height: imgHeight2}}/> : <></>}
-      <Image ref={refImg2} src={imageUrl} style={{display: "none"}}/>
-     {image &&  <ImgContainer height={imgHeight} width={imgWidth} >
+      <Image ref={refImg2} src={imageUrl} style={{ display: "none"}}/>
+     {image &&  <ImgContainer height={imgHeight} width={imgWidth}>
         <Img
           src={URL.createObjectURL(image)}
           alt="logo"
@@ -340,62 +335,53 @@ function App() {
       </ImgContainer>}
       <ButtonContainer>
       <button
-        onClick={async () => {
+        onClick={() => {
           if(image){
           const ctx = refCanvas.current.getContext("2d");
-          // refCanvas.current.width = imgWidth;
-          // refCanvas.current.height = imgHeight;
-          const bitmap = await createImageBitmap(image);
-          const widthImg = bitmap.width;
-          const heightImg = bitmap.height;
-          refCanvas.current.width = bitmap.width;
-          refCanvas.current.height = bitmap.height;
+          refCanvas.current.width = imgWidth;
+          refCanvas.current.height = imgHeight;
           ctx.beginPath();
           ctx.moveTo(
-            (cornors.pointer1.X * widthImg) / 100,
-            (cornors.pointer1.Y * heightImg) / 100
+            (cornors.pointer1.X * imgWidth) / 100,
+            (cornors.pointer1.Y * imgHeight) / 100
           );
           ctx.lineTo(
-            (cornors.pointer3.X * widthImg) / 100,
-            (cornors.pointer3.Y * heightImg) / 100
+            (cornors.pointer3.X * imgWidth) / 100,
+            (cornors.pointer3.Y * imgHeight) / 100
           );
           ctx.lineTo(
-            (cornors.pointer5.X * widthImg) / 100,
-            (cornors.pointer5.Y * heightImg) / 100
+            (cornors.pointer5.X * imgWidth) / 100,
+            (cornors.pointer5.Y * imgHeight) / 100
           );
           ctx.lineTo(
-            (cornors.pointer7.X * widthImg) / 100,
-            (cornors.pointer7.Y * heightImg) / 100
+            (cornors.pointer7.X * imgWidth) / 100,
+            (cornors.pointer7.Y * imgHeight) / 100
           );
           ctx.closePath();
           ctx.clip();
-          const widthUp = (cornors.pointer3.X * widthImg) / 100 - (cornors.pointer1.X * widthImg) / 100;
-          const heightUp = (cornors.pointer7.Y * heightImg) / 100 - (cornors.pointer1.Y * heightImg) / 100;
-          const widthDown = (cornors.pointer5.X * widthImg) / 100 - (cornors.pointer7.X * widthImg) / 100;
-          const heightDown = (cornors.pointer5.Y * heightImg) / 100 - (cornors.pointer3.Y * heightImg) / 100;
+          const widthUp = (cornors.pointer3.X * imgWidth) / 100 - (cornors.pointer1.X * imgWidth) / 100;
+          const heightUp = (cornors.pointer7.Y * imgHeight) / 100 - (cornors.pointer1.Y * imgHeight) / 100;
+          const widthDown = (cornors.pointer5.X * imgWidth) / 100 - (cornors.pointer7.X * imgWidth) / 100;
+          const heightDown = (cornors.pointer5.Y * imgHeight) / 100 - (cornors.pointer3.Y * imgHeight) / 100;
 
           const width = widthUp < widthDown ? widthUp : widthDown;
           const height = heightUp < heightDown ? heightUp : heightDown;
 
-          // ctx.drawImage(refImg.current,0,0, widthImg, heightImg);
-          
-          ctx.drawImage(bitmap, 0, 0, bitmap.width, bitmap.height);
+          ctx.drawImage(refImg.current,0,0, imgWidth, imgHeight);
+
 
           const ctx2 = refCanvas2.current.getContext("2d");
 
-          refCanvas2.current.width = width;
-          refCanvas2.current.height = height;
+          refCanvas2.current.width = imgWidth;
+          refCanvas2.current.height = imgHeight;
 
           
-          const imageUrl = refCanvas.current.toDataURL("image/png", 1.0);
-          setImageUrl(imageUrl);
+          const image = refCanvas.current.toDataURL("image/png", 1.0);
+          setImageUrl(image);
 
           refImg2.current.addEventListener("load", () => {
             // alert("image loaded");
-            ctx2.drawImage(refImg2.current, (cornors.pointer1.X * widthImg) / 100, (cornors.pointer1.Y*heightImg)/100, width, height, 0, 0, width, height);
-            setImgWidth2(width);
-            setImgHeight2(height);
-            setImageUrl2(refCanvas2.current.toDataURL("image/png", 1.0))
+            ctx2.drawImage(refImg2.current, cornors.pointer1.X, cornors.pointer1.Y, width, height, 0, 0, width, height);
           })
     
           // console.log();
@@ -417,7 +403,7 @@ function App() {
 export default App;
 
 const Container = styled.div`
-  height: 300vh;
+  height: 200vh;
   width: 100vw;
   display: flex;
   /* background-color: teal; */
