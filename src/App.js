@@ -152,7 +152,7 @@ function App() {
             >
               <Pointer1 className={activePointer.pointer1 ? "active" : ""} />
             </Draggable>
-            <Draggable
+            {/* <Draggable
               ref={refPointer2}
               bounds={"parent"}
               onStart={() =>
@@ -182,7 +182,7 @@ function App() {
               // }}
             >
               <Pointer2 className={activePointer.pointer2 ? "active" : ""} />
-            </Draggable>
+            </Draggable> */}
             <Draggable
               ref={refPointer3}
               bounds={"parent"}
@@ -215,7 +215,7 @@ function App() {
             >
               <Pointer3 className={activePointer.pointer3 ? "active" : ""} />
             </Draggable>
-            <Draggable
+            {/* <Draggable
               ref={refPointer4}
               bounds={"parent"}
               onStart={() =>
@@ -246,7 +246,7 @@ function App() {
               // }}
             >
               <Pointer4 className={activePointer.pointer4 ? "active" : ""} />
-            </Draggable>
+            </Draggable> */}
             <Draggable
               ref={refPointer5}
               bounds={"parent"}
@@ -279,7 +279,7 @@ function App() {
             >
               <Pointer5 className={activePointer.pointer5 ? "active" : ""} />
             </Draggable>
-            <Draggable
+            {/* <Draggable
               ref={refPointer6}
               bounds={"parent"}
               onStart={() =>
@@ -310,7 +310,7 @@ function App() {
               // }}
             >
               <Pointer6 className={activePointer.pointer6 ? "active" : ""} />
-            </Draggable>
+            </Draggable> */}
             <Draggable
               ref={refPointer7}
               bounds={"parent"}
@@ -342,7 +342,7 @@ function App() {
             >
               <Pointer7 className={activePointer.pointer7 ? "active" : ""} />
             </Draggable>
-            <Draggable
+            {/* <Draggable
               ref={refPointer8}
               bounds={"parent"}
               onStart={() =>
@@ -372,7 +372,7 @@ function App() {
               // }}
             >
               <Pointer8 className={activePointer.pointer8 ? "active" : ""} />
-            </Draggable>
+            </Draggable> */}
           </PointerContainer>
         </ImgContainer>
       )}
@@ -432,7 +432,7 @@ function App() {
               try {
                 var canvas = fx.canvas();
                 var img = bitmap;
-                var texture = canvas.texture(bitmap);
+                var texture = canvas.texture(img);
                 console.log("before", before);
                 console.log("after", after);
                 canvas
