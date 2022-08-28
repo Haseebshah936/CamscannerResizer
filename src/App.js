@@ -1,3 +1,4 @@
+import fx from "glfx";
 import { useEffect, useRef, useState } from "react";
 import Draggable from "react-draggable";
 import styled from "styled-components";
@@ -52,363 +53,442 @@ function App() {
   const refPointer8 = useRef();
   const [imgWidth2, setImgWidth2] = useState(0);
   const [imgHeight2, setImgHeight2] = useState(0);
-  
+  const [pointerLocations, setPointerLocations] = useState({
+    A: {
+      x: 0,
+      y: 0,
+    },
+    B: {
+      x: 0,
+      y: 0,
+    },
+    C: {
+      x: 0,
+      y: 0,
+    },
+    D: {
+      x: 0,
+      y: 0,
+    },
+  });
 
   useEffect(() => {
-    if(image){
-      console.log("Repicked")
+    if (image) {
+      console.log("Repicked");
       console.log("Width", refImg.current.offsetHeight);
-    console.log(refImg.current.offsetWidth);
+      console.log(refImg.current.offsetWidth);
       setImgHeight(refImg.current.offsetHeight);
       setImgWidth(refImg.current.offsetWidth);
     }
   }, [refImg, loaded, image]);
 
-  useEffect(() => {
-    
-    // console.log(activePointer);
-  }, [activePointer, image]);
-
   return (
     <Container className="App">
       {/* <p>canvas1</p> */}
-      <canvas ref={refCanvas} style={{ resize: "contain", display: "none", position: "absolute" }} />
-      { imageUrl2 && <a href={imageUrl2} download>Download Cropped</a>}
-        <canvas ref={refCanvas2} style={{ resize: "contain",width: imgWidth2, display: "none"}} /> 
+      <canvas
+        ref={refCanvas}
+        style={{ resize: "contain", display: "none", position: "absolute" }}
+      />
+      {imageUrl2 && (
+        <a href={imageUrl2} download>
+          Download Cropped
+        </a>
+      )}
+      <canvas
+        ref={refCanvas2}
+        style={{ resize: "contain", width: imgWidth2, display: "none" }}
+      />
       {/* <p>Image2</p> */}
-      { imgWidth2 ?  <Image src={imageUrl2} style={{width: imgWidth2, height: imgHeight2}}/> : <></>}
-      <Image ref={refImg2} src={imageUrl} style={{display: "none"}}/>
-     {image &&  <ImgContainer height={imgHeight} width={imgWidth} >
-        <Img
-          src={URL.createObjectURL(image)}
-          alt="logo"
-          ref={refImg}
-          polygon={cornors}
-          onLoad={() => setLoaded(true)}
+      {imgWidth2 ? (
+        <Image
+          src={imageUrl2}
+          style={{ width: imgWidth2, height: imgHeight2 }}
         />
+      ) : (
+        <></>
+      )}
+      <Image ref={refImg2} src={imageUrl} style={{}} />
+      {/* <img src={imageUrl}/> */}
+      {image && (
+        <ImgContainer height={imgHeight} width={imgWidth}>
+          <Img
+            src={URL.createObjectURL(image)}
+            alt="logo"
+            ref={refImg}
+            polygon={cornors}
+            onLoad={() => setLoaded(true)}
+          />
 
-         <PointerContainer width={imgWidth} height={imgHeight}>
-          <Draggable
-            ref={refPointer1}
-            bounds={"parent"}
-            onStart={() =>
-              setActivePointer((pre) => ({
-                pointer1: true,
-                pointer2: false,
-                pointer3: false,
-                pointer4: false,
-                pointer5: false,
-                pointer6: false,
-                pointer7: false,
-                pointer8: false,
-              }))
-            }
-            onDrag={(e) => {
-              const X = ((0 + refPointer1.current.state.x) / imgWidth) * 100;
-              const Y = ((0 + refPointer1.current.state.y) / imgHeight) * 100;
+          <PointerContainer width={imgWidth} height={imgHeight}>
+            <Draggable
+              ref={refPointer1}
+              bounds={"parent"}
+              onStart={() =>
+                setActivePointer((pre) => ({
+                  pointer1: true,
+                  pointer2: false,
+                  pointer3: false,
+                  pointer4: false,
+                  pointer5: false,
+                  pointer6: false,
+                  pointer7: false,
+                  pointer8: false,
+                }))
+              }
+              onDrag={(e) => {
+                const X =  ((refPointer1.current.state.x) / imgWidth) * 100;
+                const Y = ((refPointer1.current.state.y) / imgHeight) * 100;
+                console.log("width", imgWidth);
+                console.log("height", imgHeight);
+                console.log("Ax",refPointer1.current.state.x,"Ay", refPointer1.current.state.y);
+                setCornors({
+                  ...cornors,
+                  pointer1: {
+                    X,
+                    Y,
+                  },
+                });
+              }}
+            >
+              <Pointer1 className={activePointer.pointer1 ? "active" : ""} />
+            </Draggable>
+            <Draggable
+              ref={refPointer2}
+              bounds={"parent"}
+              onStart={() =>
+                setActivePointer((pre) => ({
+                  pointer1: false,
+                  pointer2: true,
+                  pointer3: false,
+                  pointer4: false,
+                  pointer5: false,
+                  pointer6: false,
+                  pointer7: false,
+                  pointer8: false,
+                }))
+              }
+              // onDrag={(e) => {
+              //   const X =
+              //     ((imgWidth * 0.5 + refPointer2.current.state.x) / imgWidth) *
+              //     100;
+              //   const Y = ((0 + refPointer2.current.state.y) / imgHeight) * 100;
+              //   setCornors({
+              //     ...cornors,
+              //     pointer2: {
+              //       X,
+              //       Y,
+              //     },
+              //   });
+              // }}
+            >
+              <Pointer2 className={activePointer.pointer2 ? "active" : ""} />
+            </Draggable>
+            <Draggable
+              ref={refPointer3}
+              bounds={"parent"}
+              onStart={() =>
+                setActivePointer((pre) => ({
+                  pointer1: false,
+                  pointer2: false,
+                  pointer3: true,
+                  pointer4: false,
+                  pointer5: false,
+                  pointer6: false,
+                  pointer7: false,
+                  pointer8: false,
+                }))
+              }
+              onDrag={(e) => {
+                const X =
+                  ((imgWidth + refPointer3.current.state.x) / imgWidth) * 100;
+                const Y = ((0 + refPointer3.current.state.y) / imgHeight) * 100;
+                console.log("Bx",refPointer3.current.state.x,"By", refPointer3.current.state.y);
 
-              console.log(X, Y);
-              setCornors({
-                ...cornors,
-                pointer1: {
-                  X,
-                  Y,
-                },
-              });
-            }}
-          >
-            <Pointer1 className={activePointer.pointer1 ? "active" : ""} />
-          </Draggable>
-          <Draggable
-            ref={refPointer2}
-            bounds={"parent"}
-            onStart={() =>
-              setActivePointer((pre) => ({
-                pointer1: false,
-                pointer2: true,
-                pointer3: false,
-                pointer4: false,
-                pointer5: false,
-                pointer6: false,
-                pointer7: false,
-                pointer8: false,
-              }))
-            }
-            // onDrag={(e) => {
-            //   const X =
-            //     ((imgWidth * 0.5 + refPointer2.current.state.x) / imgWidth) *
-            //     100;
-            //   const Y = ((0 + refPointer2.current.state.y) / imgHeight) * 100;
-            //   setCornors({
-            //     ...cornors,
-            //     pointer2: {
-            //       X,
-            //       Y,
-            //     },
-            //   });
-            // }}
-          >
-            <Pointer2 className={activePointer.pointer2 ? "active" : ""} />
-          </Draggable>
-          <Draggable
-            ref={refPointer3}
-            bounds={"parent"}
-            onStart={() =>
-              setActivePointer((pre) => ({
-                pointer1: false,
-                pointer2: false,
-                pointer3: true,
-                pointer4: false,
-                pointer5: false,
-                pointer6: false,
-                pointer7: false,
-                pointer8: false,
-              }))
-            }
-            onDrag={(e) => {
-              const X =
-                ((imgWidth + refPointer3.current.state.x) / imgWidth) * 100;
-              const Y = ((0 + refPointer3.current.state.y) / imgHeight) * 100;
-              setCornors({
-                ...cornors,
-                pointer3: {
-                  X,
-                  Y,
-                },
-              });
-            }}
-          >
-            <Pointer3 className={activePointer.pointer3 ? "active" : ""} />
-          </Draggable>
-          <Draggable
-            ref={refPointer4}
-            bounds={"parent"}
-            onStart={() =>
-              setActivePointer((pre) => ({
-                pointer1: false,
-                pointer2: false,
-                pointer3: false,
-                pointer4: true,
-                pointer5: false,
-                pointer6: false,
-                pointer7: false,
-                pointer8: false,
-              }))
-            }
-            // onDrag={(e) => {
-            //   const X =
-            //     ((imgWidth + refPointer4.current.state.x) / imgWidth) * 100;
-            //   const Y =
-            //     ((imgHeight * 0.5 + refPointer4.current.state.y) / imgHeight) *
-            //     100;
-            //   setCornors({
-            //     ...cornors,
-            //     pointer4: {
-            //       X,
-            //       Y,
-            //     },
-            //   });
-            // }}
-          >
-            <Pointer4 className={activePointer.pointer4 ? "active" : ""} />
-          </Draggable>
-          <Draggable
-            ref={refPointer5}
-            bounds={"parent"}
-            onStart={() =>
-              setActivePointer((pre) => ({
-                pointer1: false,
-                pointer2: false,
-                pointer3: false,
-                pointer4: false,
-                pointer5: true,
-                pointer6: false,
-                pointer7: false,
-                pointer8: false,
-              }))
-            }
-            onDrag={(e) => {
-              const X =
-                ((imgWidth + refPointer5.current.state.x) / imgWidth) * 100;
-              const Y =
-                ((imgHeight + refPointer5.current.state.y) / imgHeight) * 100;
-              setCornors({
-                ...cornors,
-                pointer5: {
-                  X,
-                  Y,
-                },
-              });
-            }}
-          >
-            <Pointer5 className={activePointer.pointer5 ? "active" : ""} />
-          </Draggable>
-          <Draggable
-            ref={refPointer6}
-            bounds={"parent"}
-            onStart={() =>
-              setActivePointer((pre) => ({
-                pointer1: false,
-                pointer2: false,
-                pointer3: false,
-                pointer4: false,
-                pointer5: false,
-                pointer6: true,
-                pointer7: false,
-                pointer8: false,
-              }))
-            }
-            // onDrag={(e) => {
-            //   const X =
-            //     ((imgWidth * 0.5 + refPointer6.current.state.x) / imgWidth) *
-            //     100;
-            //   const Y =
-            //     ((imgHeight + refPointer6.current.state.y) / imgHeight) * 100;
-            //   setCornors({
-            //     ...cornors,
-            //     pointer6: {
-            //       X,
-            //       Y,
-            //     },
-            //   });
-            // }}
-          >
-            <Pointer6 className={activePointer.pointer6 ? "active" : ""} />
-          </Draggable>
-          <Draggable
-            ref={refPointer7}
-            bounds={"parent"}
-            onStart={() =>
-              setActivePointer((pre) => ({
-                pointer1: false,
-                pointer2: false,
-                pointer3: false,
-                pointer4: false,
-                pointer5: false,
-                pointer6: false,
-                pointer7: true,
-                pointer8: false,
-              }))
-            }
-            onDrag={(e) => {
-              const X = ((0 + refPointer7.current.state.x) / imgWidth) * 100;
-              const Y =
-                ((imgHeight + refPointer7.current.state.y) / imgHeight) * 100;
-              setCornors({
-                ...cornors,
-                pointer7: {
-                  X,
-                  Y,
-                },
-              });
-            }}
-          >
-            <Pointer7 className={activePointer.pointer7 ? "active" : ""} />
-          </Draggable>
-          <Draggable
-            ref={refPointer8}
-            bounds={"parent"}
-            onStart={() =>
-              setActivePointer((pre) => ({
-                pointer1: false,
-                pointer2: false,
-                pointer3: false,
-                pointer4: false,
-                pointer5: false,
-                pointer6: false,
-                pointer7: false,
-                pointer8: true,
-              }))
-            }
-            // onDrag={(e) => {
-            //   const X = ((0 + refPointer8.current.state.x) / imgWidth) * 100;
-            //   const Y =
-            //     ((imgHeight * 0.5 + refPointer8.current.state.y) / imgHeight) *
-            //     100;
-            //   setCornors({
-            //     ...cornors,
-            //     pointer8: {
-            //       X,
-            //       Y,
-            //     },
-            //   });
-            // }}
-          >
-            <Pointer8 className={activePointer.pointer8 ? "active" : ""} />
-          </Draggable>
-        </PointerContainer>
-      </ImgContainer>}
+                setCornors({
+                  ...cornors,
+                  pointer3: {
+                    X,
+                    Y,
+                  },
+                });
+              }}
+            >
+              <Pointer3 className={activePointer.pointer3 ? "active" : ""} />
+            </Draggable>
+            <Draggable
+              ref={refPointer4}
+              bounds={"parent"}
+              onStart={() =>
+                setActivePointer((pre) => ({
+                  pointer1: false,
+                  pointer2: false,
+                  pointer3: false,
+                  pointer4: true,
+                  pointer5: false,
+                  pointer6: false,
+                  pointer7: false,
+                  pointer8: false,
+                }))
+              }
+              // onDrag={(e) => {
+              //   const X =
+              //     ((imgWidth + refPointer4.current.state.x) / imgWidth) * 100;
+              //   const Y =
+              //     ((imgHeight * 0.5 + refPointer4.current.state.y) / imgHeight) *
+              //     100;
+              //   setCornors({
+              //     ...cornors,
+              //     pointer4: {
+              //       X,
+              //       Y,
+              //     },
+              //   });
+              // }}
+            >
+              <Pointer4 className={activePointer.pointer4 ? "active" : ""} />
+            </Draggable>
+            <Draggable
+              ref={refPointer5}
+              bounds={"parent"}
+              onStart={() =>
+                setActivePointer((pre) => ({
+                  pointer1: false,
+                  pointer2: false,
+                  pointer3: false,
+                  pointer4: false,
+                  pointer5: true,
+                  pointer6: false,
+                  pointer7: false,
+                  pointer8: false,
+                }))
+              }
+              onDrag={(e) => {
+                const X =
+                  ((imgWidth + refPointer5.current.state.x) / imgWidth) * 100;
+                const Y =
+                  ((imgHeight + refPointer5.current.state.y) / imgHeight) * 100;
+                  console.log("Dx",refPointer5.current.state.x,"Dy",refPointer5.current.state.y);
+                setCornors({
+                  ...cornors,
+                  pointer5: {
+                    X,
+                    Y,
+                  },
+                });
+              }}
+            >
+              <Pointer5 className={activePointer.pointer5 ? "active" : ""} />
+            </Draggable>
+            <Draggable
+              ref={refPointer6}
+              bounds={"parent"}
+              onStart={() =>
+                setActivePointer((pre) => ({
+                  pointer1: false,
+                  pointer2: false,
+                  pointer3: false,
+                  pointer4: false,
+                  pointer5: false,
+                  pointer6: true,
+                  pointer7: false,
+                  pointer8: false,
+                }))
+              }
+              // onDrag={(e) => {
+              //   const X =
+              //     ((imgWidth * 0.5 + refPointer6.current.state.x) / imgWidth) *
+              //     100;
+              //   const Y =
+              //     ((imgHeight + refPointer6.current.state.y) / imgHeight) * 100;
+              //   setCornors({
+              //     ...cornors,
+              //     pointer6: {
+              //       X,
+              //       Y,
+              //     },
+              //   });
+              // }}
+            >
+              <Pointer6 className={activePointer.pointer6 ? "active" : ""} />
+            </Draggable>
+            <Draggable
+              ref={refPointer7}
+              bounds={"parent"}
+              onStart={() =>
+                setActivePointer((pre) => ({
+                  pointer1: false,
+                  pointer2: false,
+                  pointer3: false,
+                  pointer4: false,
+                  pointer5: false,
+                  pointer6: false,
+                  pointer7: true,
+                  pointer8: false,
+                }))
+              }
+              onDrag={(e) => {
+                const X = ((0 + refPointer7.current.state.x) / imgWidth) * 100;
+                const Y =
+                  ((imgHeight + refPointer7.current.state.y) / imgHeight) * 100;
+                  console.log("Cx",refPointer7.current.state.x,"Cy", refPointer7.current.state.y);
+                setCornors({
+                  ...cornors,
+                  pointer7: {
+                    X,
+                    Y,
+                  },
+                });
+              }}
+            >
+              <Pointer7 className={activePointer.pointer7 ? "active" : ""} />
+            </Draggable>
+            <Draggable
+              ref={refPointer8}
+              bounds={"parent"}
+              onStart={() =>
+                setActivePointer((pre) => ({
+                  pointer1: false,
+                  pointer2: false,
+                  pointer3: false,
+                  pointer4: false,
+                  pointer5: false,
+                  pointer6: false,
+                  pointer7: false,
+                  pointer8: true,
+                }))
+              }
+              // onDrag={(e) => {
+              //   const X = ((0 + refPointer8.current.state.x) / imgWidth) * 100;
+              //   const Y =
+              //     ((imgHeight * 0.5 + refPointer8.current.state.y) / imgHeight) *
+              //     100;
+              //   setCornors({
+              //     ...cornors,
+              //     pointer8: {
+              //       X,
+              //       Y,
+              //     },
+              //   });
+              // }}
+            >
+              <Pointer8 className={activePointer.pointer8 ? "active" : ""} />
+            </Draggable>
+          </PointerContainer>
+        </ImgContainer>
+      )}
       <ButtonContainer>
-      <button
-        onClick={async () => {
-          if(image){
-          const ctx = refCanvas.current.getContext("2d");
-          // refCanvas.current.width = imgWidth;
-          // refCanvas.current.height = imgHeight;
-          const bitmap = await createImageBitmap(image);
-          const widthImg = bitmap.width;
-          const heightImg = bitmap.height;
-          refCanvas.current.width = bitmap.width;
-          refCanvas.current.height = bitmap.height;
-          ctx.beginPath();
-          ctx.moveTo(
-            (cornors.pointer1.X * widthImg) / 100,
-            (cornors.pointer1.Y * heightImg) / 100
-          );
-          ctx.lineTo(
-            (cornors.pointer3.X * widthImg) / 100,
-            (cornors.pointer3.Y * heightImg) / 100
-          );
-          ctx.lineTo(
-            (cornors.pointer5.X * widthImg) / 100,
-            (cornors.pointer5.Y * heightImg) / 100
-          );
-          ctx.lineTo(
-            (cornors.pointer7.X * widthImg) / 100,
-            (cornors.pointer7.Y * heightImg) / 100
-          );
-          ctx.closePath();
-          ctx.clip();
-          const widthUp = (cornors.pointer3.X * widthImg) / 100 - (cornors.pointer1.X * widthImg) / 100;
-          const heightUp = (cornors.pointer7.Y * heightImg) / 100 - (cornors.pointer1.Y * heightImg) / 100;
-          const widthDown = (cornors.pointer5.X * widthImg) / 100 - (cornors.pointer7.X * widthImg) / 100;
-          const heightDown = (cornors.pointer5.Y * heightImg) / 100 - (cornors.pointer3.Y * heightImg) / 100;
+        <button
+          onClick={async () => {
+            if (image) {
+              const ctx = refCanvas.current.getContext("2d");
+              // refCanvas.current.width = imgWidth;
+              // refCanvas.current.height = imgHeight;
+              const bitmap = await createImageBitmap(image);
+              const widthImg = bitmap.width;
+              const heightImg = bitmap.height;
+              refCanvas.current.width = bitmap.width;
+              refCanvas.current.height = bitmap.height;
+              // ctx.beginPath();
 
-          const width = widthUp < widthDown ? widthUp : widthDown;
-          const height = heightUp < heightDown ? heightUp : heightDown;
+              console.log("Cornors", cornors)
 
-          // ctx.drawImage(refImg.current,0,0, widthImg, heightImg);
-          
-          ctx.drawImage(bitmap, 0, 0, bitmap.width, bitmap.height);
+              const ax = (cornors.pointer1.X * widthImg) / 100;
+              const ay = (cornors.pointer1.Y * heightImg) / 100;
+              const bx = (cornors.pointer3.X * widthImg) / 100;
+              const by = (cornors.pointer3.Y * heightImg) / 100;
+              const cx = (cornors.pointer5.X * widthImg) / 100;
+              const cy = (cornors.pointer5.Y * heightImg) / 100;
+              const dx = (cornors.pointer7.X * widthImg) / 100;
+              const dy = (cornors.pointer7.Y * heightImg) / 100;
+              // ctx.moveTo(
+              //   ax,
+              //   ay
+              // );
+              // ctx.lineTo(
+              //   bx,
+              //   by
+              // );
+              // ctx.lineTo(
+              //   cx,
+              //   cy
+              // );
+              // ctx.lineTo(
+              //   dx,
+              //   dy
+              // );
+              // ctx.closePath();
+              // ctx.clip();
 
-          const ctx2 = refCanvas2.current.getContext("2d");
+              const widthUp = bx - ax;
+              const heightUp = dy - ay;
+              const widthDown = cx - dx;
+              const heightDown = cy - by;
 
-          refCanvas2.current.width = width;
-          refCanvas2.current.height = height;
+              const width = widthUp < widthDown ? widthUp : widthDown;
+              const height = heightUp < heightDown ? heightUp : heightDown;
+              const before = [ax, ay, bx, by, dx, dy,cx, cy];
+              const after = [0, 0, widthImg, 0, 0, heightImg, widthImg, heightImg];
 
-          
-          const imageUrl = refCanvas.current.toDataURL("image/png", 1.0);
-          setImageUrl(imageUrl);
+              try {
+                var canvas = fx.canvas();
+                var img = bitmap;
+                var texture = canvas.texture(bitmap);
+                console.log("before", before);
+                console.log("after", after);
+                canvas
+                  .draw(texture)
+                  .perspective(
+                    before,
+                    after
+                  )
+                  .update();
+                  const data = canvas.toDataURL("image/png", 1.0);
+                  setImgWidth2(widthImg);
+                  setImgHeight2(heightImg);
+                  setImageUrl2(data);
+    //               refImg2.current.parentNode.insertBefore(canvas, refImg2.current);
+    // image.parentNode.removeChild(refImg2.current);
+              } catch (error) {
+                console.log(error);
+              }
 
-          refImg2.current.addEventListener("load", () => {
-            // alert("image loaded");
-            ctx2.drawImage(refImg2.current, (cornors.pointer1.X * widthImg) / 100, (cornors.pointer1.Y*heightImg)/100, width, height, 0, 0, width, height);
-            setImgWidth2(width);
-            setImgHeight2(height);
-            setImageUrl2(refCanvas2.current.toDataURL("image/png", 1.0))
-          })
-    
-          // console.log();
-        }
+              // ctx.drawImage(refImg.current,0,0, widthImg, heightImg);
 
-        }}
-      >
-        Crop
-      </button>
-      <input type={"file"} onChange={(e) => {
-          setLoaded(false)
-          setImage(e.target.files[0])
-        }}/>
+              // ctx.drawImage(bitmap, 0, 0, bitmap.width, bitmap.height);
+
+              // const ctx2 = refCanvas2.current.getContext("2d");
+
+              // refCanvas2.current.width = width;
+              // refCanvas2.current.height = height;
+
+              // const imageUrl = refCanvas.current.toDataURL("image/png", 1.0);
+              // setImageUrl(imageUrl);
+
+              // refImg2.current.addEventListener("load", () => {
+              //   // alert("image loaded");
+              //   ctx2.drawImage(refImg2.current, (cornors.pointer1.X * widthImg) / 100, (cornors.pointer1.Y*heightImg)/100, width, height, 0, 0, width, height);
+              //   setImgWidth2(width);
+              //   setImgHeight2(height);
+              //   setImageUrl2(refCanvas2.current.toDataURL("image/png", 1.0))
+              // })
+
+              
+
+             
+
+              // console.log();
+            }
+          }}
+        >
+          Crop
+        </button>
+        <input
+          type={"file"}
+          onChange={(e) => {
+            setLoaded(false);
+            setImage(e.target.files[0]);
+          }}
+        />
       </ButtonContainer>
     </Container>
   );
@@ -440,10 +520,11 @@ const ImgContainer = styled.div`
 `;
 
 const Image = styled.img`
-display: "none";
-max-width: 40rem;
+  display: "none";
+  max-width: 40rem;
   margin-inline: 1rem;
-  max-height: 40rem;`
+  max-height: 40rem;
+`;
 
 const Img = styled.img`
   max-width: 40rem;
@@ -576,4 +657,4 @@ const ButtonContainer = styled.div`
   display: flex;
   width: 40rem;
   justify-content: space-between;
-`
+`;
